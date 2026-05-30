@@ -120,7 +120,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      <main className="px-4 py-4 lg:pl-[320px]">
+      <main className="px-4 pb-32 pt-4 lg:pb-4 lg:pl-[320px]">
         <div className="mx-auto max-w-[1400px]">
           {checkingAuth ? (
             <div className="grid min-h-screen place-items-center">
@@ -134,25 +134,35 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-white p-2 lg:hidden">
-        <div className="grid grid-cols-5 gap-1">
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-white px-3 pb-[calc(10px+env(safe-area-inset-bottom))] pt-2 lg:hidden">
+        <div className="scrollbar-hide flex gap-2 overflow-x-auto overscroll-x-contain">
           {[...nav, ...(profile?.role === "admin" ? adminNav : [])].map((item) => {
-            const active = pathname === item.href;
+            const active =
+              pathname === item.href ||
+              (item.href !== "/dashboard" && pathname.startsWith(item.href));
             const Icon = item.icon;
+
             return (
               <Link
                 key={item.href}
                 href={item.href}
                 className={clsx(
-                  "grid place-items-center rounded-xl py-2 text-xs font-semibold",
+                  "grid h-16 min-w-[86px] shrink-0 place-items-center rounded-2xl px-3 py-2 text-xs font-semibold",
                   active ? "bg-ink text-white" : "text-muted",
                 )}
               >
                 <Icon size={18} />
-                {item.label}
+                <span className="whitespace-nowrap leading-none">{item.label}</span>
               </Link>
             );
           })}
+          <button
+            onClick={handleSignOut}
+            className="grid h-16 min-w-[86px] shrink-0 place-items-center rounded-2xl px-3 py-2 text-xs font-semibold text-muted"
+          >
+            <LogOut size={18} />
+            <span className="whitespace-nowrap leading-none">Sair</span>
+          </button>
         </div>
       </div>
     </div>

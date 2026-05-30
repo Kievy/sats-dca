@@ -46,3 +46,11 @@ select {
   border-color: #111111;
   background: #ffffff;
 }
+
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
