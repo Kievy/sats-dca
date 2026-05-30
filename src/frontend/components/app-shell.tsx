@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { getCurrentUser, signOut } from "@/backend/services/auth";
 import { clsx } from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getMyProfile, type AppProfile } from "@/backend/services/users";
 
 const nav = [
@@ -33,6 +33,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [profile, setProfile] = useState<AppProfile | null>(null);
+  const mobileNavRef = useRef<HTMLDivElement | null>(null);
+  const [mobileScroll, setMobileScroll] = useState({ left: 0, max: 0 });
 
   useEffect(() => {
     let active = true;
@@ -66,10 +68,38 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     };
   }, [router]);
 
+  useEffect(() => {
+    updateMobileScroll();
+
+    window.addEventListener("resize", updateMobileScroll);
+
+    return () => {
+      window.removeEventListener("resize", updateMobileScroll);
+    };
+  }, [profile?.role]);
+
   async function handleSignOut() {
     await signOut();
     router.push("/");
   }
+
+  function updateMobileScroll() {
+    const navElement = mobileNavRef.current;
+
+    if (!navElement) {
+      return;
+    }
+
+    setMobileScroll({
+      left: navElement.scrollLeft,
+      max: navElement.scrollWidth - navElement.clientWidth,
+    });
+  }
+
+  const hasMobileOverflow = mobileScroll.max > 4;
+  const scrollProgress = hasMobileOverflow
+    ? Math.min(mobileScroll.left / mobileScroll.max, 1)
+    : 0;
 
   return (
     <div className="min-h-screen bg-[#f3f3f1] text-ink">
@@ -134,8 +164,28 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-white px-3 pb-[calc(10px+env(safe-area-inset-bottom))] pt-2 lg:hidden">
-        <div className="scrollbar-hide flex gap-2 overflow-x-auto overscroll-x-contain">
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-white px-3 pb-[calc(10px+env(safe-area-inset-bottom))] pt-4 lg:hidden">
+        <div
+          className={clsx(
+            "absolute left-1/2 top-1 h-1 w-24 -translate-x-1/2 rounded-full bg-[#e6e6e2]",
+            !hasMobileOverflow && "opacity-40",
+          )}
+          aria-hidden="true"
+        >
+          <div
+            className="h-full w-9 rounded-full bg-[#9b9b94] transition-transform duration-150"
+            style={{
+              transform: `translateX(${scrollProgress * 60}px)`,
+            }}
+          />
+        </div>
+        <div
+          ref={mobileNavRef}
+          onScroll={updateMobileScroll}
+          onMouseEnter={updateMobileScroll}
+          onTouchStart={updateMobileScroll}
+          className="scrollbar-hide flex gap-2 overflow-x-auto overscroll-x-contain"
+        >
           {[...nav, ...(profile?.role === "admin" ? adminNav : [])].map((item) => {
             const active =
               pathname === item.href ||
