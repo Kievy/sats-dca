@@ -22,14 +22,23 @@ type PurchaseForm = {
   notes: string;
 };
 
-const emptyForm: PurchaseForm = {
-  date: "",
-  sats: "",
-  btcPriceUsd: "",
-  investedBrl: "",
-  platform: "",
-  notes: "",
-};
+function todayInputDate() {
+  const today = new Date();
+  const timezoneOffset = today.getTimezoneOffset() * 60 * 1000;
+
+  return new Date(today.getTime() - timezoneOffset).toISOString().slice(0, 10);
+}
+
+function getDefaultForm(): PurchaseForm {
+  return {
+    date: todayInputDate(),
+    sats: "",
+    btcPriceUsd: "",
+    investedBrl: "",
+    platform: "",
+    notes: "",
+  };
+}
 
 export default function ComprasPage() {
   const {
@@ -43,7 +52,7 @@ export default function ComprasPage() {
   } = usePurchases();
   const [message, setMessage] = useState("");
   const [editing, setEditing] = useState<DcaPoint | null>(null);
-  const [formValues, setFormValues] = useState<PurchaseForm>(emptyForm);
+  const [formValues, setFormValues] = useState<PurchaseForm>(() => getDefaultForm());
 
   const rows = useMemo(
     () => [...purchases].sort((a, b) => b.date.localeCompare(a.date)),
@@ -141,7 +150,7 @@ export default function ComprasPage() {
 
   function resetForm() {
     setEditing(null);
-    setFormValues(emptyForm);
+    setFormValues(getDefaultForm());
   }
 
   function updateField(field: keyof PurchaseForm, value: string) {
