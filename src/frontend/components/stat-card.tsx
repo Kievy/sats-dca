@@ -18,7 +18,7 @@ export function StatCard({
   }[tone];
 
   return (
-    <div className="rounded-[22px] border border-line bg-white p-5 shadow-sm">
+    <div className="rounded-[22px] border border-line bg-panel p-5 shadow-sm">
       <p className="text-xs font-semibold uppercase tracking-[0.08em] text-muted">{label}</p>
       <p className={`mt-2 text-2xl font-extrabold leading-tight ${toneClass}`}>{value}</p>
       {sub ? <p className="mt-1 text-sm text-muted">{sub}</p> : null}

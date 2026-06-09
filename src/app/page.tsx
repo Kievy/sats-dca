@@ -43,26 +43,26 @@ export default function WelcomePage() {
   }
 
   return (
-    <main className="grid min-h-screen gap-4 bg-[#f3f3f1] p-4 lg:grid-cols-[460px_1fr] lg:gap-0">
-      <section className="order-2 flex min-h-[310px] flex-col rounded-[28px] bg-ink p-6 text-white shadow-soft sm:min-h-[380px] lg:order-1 lg:min-h-[calc(100vh-32px)] lg:p-8">
+    <main className="grid min-h-screen gap-4 bg-app p-4 text-ink lg:grid-cols-[460px_1fr] lg:gap-0">
+      <section className="order-2 flex min-h-[310px] flex-col rounded-[28px] border border-line bg-hero p-6 text-heroText shadow-soft sm:min-h-[380px] lg:order-1 lg:min-h-[calc(100vh-32px)] lg:p-8">
         <div className="flex items-center gap-3">
           <div className="grid size-10 place-items-center rounded-full bg-bitcoin">
             <Bitcoin size={22} />
           </div>
           <div>
             <p className="text-2xl font-bold">Sats DCA</p>
-            <p className="text-sm text-white/60">Bitcoin DCA Tracker</p>
+            <p className="text-sm opacity-60">Bitcoin DCA Tracker</p>
           </div>
         </div>
 
         <div className="mt-12 max-w-sm sm:mt-16 lg:my-auto">
-          <p className="mb-3 inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-bitcoin sm:text-sm">
+          <p className="mb-3 inline-flex rounded-full bg-bitcoin/10 px-3 py-1 text-xs font-semibold text-bitcoin sm:text-sm">
             DCA em Bitcoin
           </p>
           <h1 className="text-3xl font-extrabold leading-tight tracking-normal sm:text-4xl lg:text-5xl">
             Acompanhe seus sats.
           </h1>
-          <p className="mt-3 text-sm leading-6 text-white/68 sm:text-base lg:mt-5 lg:text-lg lg:leading-8">
+          <p className="mt-3 text-sm leading-6 opacity-70 sm:text-base lg:mt-5 lg:text-lg lg:leading-8">
             Registre aportes, veja seu preco medio e acompanhe sua evolucao em
             Bitcoin.
           </p>
@@ -70,19 +70,19 @@ export default function WelcomePage() {
       </section>
 
       <section className="order-1 flex items-start justify-center px-0 py-0 lg:order-2 lg:items-center lg:px-10 lg:py-8">
-        <div className="w-full max-w-[520px] rounded-[28px] border border-line bg-white p-6 shadow-soft sm:p-7">
-          <div className="mb-6 flex rounded-2xl bg-[#ededeb] p-1">
+        <div className="w-full max-w-[520px] rounded-[28px] border border-line bg-panel p-6 shadow-soft sm:p-7">
+          <div className="mb-6 flex rounded-2xl bg-subtle p-1">
             <button
               type="button"
               onClick={() => setMode("login")}
-              className={`h-11 flex-1 rounded-xl font-bold ${mode === "login" ? "bg-ink text-white" : "text-muted"}`}
+              className={`h-11 flex-1 rounded-xl font-bold ${mode === "login" ? "bg-action text-actionText" : "text-muted"}`}
             >
               Login
             </button>
             <button
               type="button"
               onClick={() => setMode("register")}
-              className={`h-11 flex-1 rounded-xl font-bold ${mode === "register" ? "bg-ink text-white" : "text-muted"}`}
+              className={`h-11 flex-1 rounded-xl font-bold ${mode === "register" ? "bg-action text-actionText" : "text-muted"}`}
             >
               Cadastro
             </button>
@@ -100,7 +100,7 @@ export default function WelcomePage() {
           <form onSubmit={handleSubmit} className="mt-7 space-y-4">
             <label className="block">
               <span className="text-sm font-semibold text-muted">Usuario</span>
-              <div className="mt-2 flex h-[52px] items-center gap-3 rounded-2xl border border-line bg-[#fafafa] px-4">
+              <div className="mt-2 flex h-[52px] items-center gap-3 rounded-2xl border border-line bg-field px-4">
                 <UserRound size={20} className="text-muted" />
                 <input
                   name="username"
@@ -115,7 +115,7 @@ export default function WelcomePage() {
 
             <label className="block">
               <span className="text-sm font-semibold text-muted">Senha</span>
-              <div className="mt-2 flex h-[52px] items-center gap-3 rounded-2xl border border-line bg-[#fafafa] px-4">
+              <div className="mt-2 flex h-[52px] items-center gap-3 rounded-2xl border border-line bg-field px-4">
                 <LockKeyhole size={20} className="text-muted" />
                 <input
                   type="password"
@@ -130,12 +130,12 @@ export default function WelcomePage() {
             </label>
 
             {error ? (
-              <p className="rounded-2xl bg-red-50 px-4 py-3 text-sm font-semibold text-danger">{error}</p>
+              <p className="rounded-2xl border border-danger/20 bg-danger/10 px-4 py-3 text-sm font-semibold text-danger">{error}</p>
             ) : null}
 
             <button
               disabled={loading}
-              className="h-[52px] w-full rounded-2xl bg-ink font-bold text-white transition hover:bg-bitcoin disabled:cursor-wait disabled:opacity-60"
+              className="h-[52px] w-full rounded-2xl bg-action font-bold text-actionText transition hover:bg-bitcoin hover:text-white disabled:cursor-wait disabled:opacity-60"
             >
               {loading ? "Aguarde..." : mode === "login" ? "Entrar" : "Cadastrar"}
             </button>

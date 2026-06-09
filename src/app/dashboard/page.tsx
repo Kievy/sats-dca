@@ -66,7 +66,7 @@ export default function DashboardPage() {
         action={
           <a
             href="/dashboard/compras"
-            className="inline-flex h-12 items-center justify-center rounded-2xl bg-ink px-5 font-bold text-white transition hover:bg-bitcoin"
+            className="inline-flex h-12 items-center justify-center rounded-2xl bg-action px-5 font-bold text-actionText transition hover:bg-bitcoin hover:text-white"
           >
             Novo aporte
           </a>
@@ -74,7 +74,7 @@ export default function DashboardPage() {
       />
 
       {error ? (
-        <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+        <div className="mb-5 rounded-2xl border border-danger/20 bg-danger/10 px-4 py-3 text-sm font-semibold text-danger">
           {error}
         </div>
       ) : null}

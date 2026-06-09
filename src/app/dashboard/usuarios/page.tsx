@@ -59,7 +59,7 @@ export default function UsuariosPage() {
         {loading ? <p className="text-sm font-semibold text-muted">Carregando usuarios...</p> : null}
 
         {error ? (
-          <p className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+          <p className="rounded-2xl border border-danger/20 bg-danger/10 px-4 py-3 text-sm font-semibold text-danger">
             {error}
           </p>
         ) : null}
@@ -76,10 +76,10 @@ export default function UsuariosPage() {
               </thead>
               <tbody className="font-bold">
                 {users.map((user) => (
-                  <tr key={user.id} className="border-b border-[#ededeb]">
+                  <tr key={user.id} className="border-b border-line">
                     <td className="py-4">{user.username}</td>
                     <td>
-                      <span className="rounded-lg bg-[#eef4ff] px-2 py-1 text-xs uppercase text-blue-700">
+                      <span className="rounded-lg bg-bitcoin/10 px-2 py-1 text-xs uppercase text-bitcoin">
                         {user.role}
                       </span>
                     </td>

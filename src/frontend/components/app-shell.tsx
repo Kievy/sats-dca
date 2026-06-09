@@ -17,6 +17,7 @@ import { getCurrentUser, signOut } from "@/backend/services/auth";
 import { clsx } from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { getMyProfile, type AppProfile } from "@/backend/services/users";
+import { ThemeToggle } from "@/frontend/components/theme-toggle";
 
 const nav = [
   { href: "/dashboard", label: "Dashboard", icon: Gauge },
@@ -102,8 +103,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     : 0;
 
   return (
-    <div className="min-h-screen bg-[#f3f3f1] text-ink">
-      <aside className="fixed left-4 top-4 z-20 hidden h-[calc(100vh-32px)] w-[280px] flex-col rounded-[28px] border border-line bg-white shadow-soft lg:flex">
+    <div className="min-h-screen bg-app text-ink">
+      <aside className="fixed left-4 top-4 z-20 hidden h-[calc(100vh-32px)] w-[280px] flex-col rounded-[28px] border border-line bg-panel shadow-soft lg:flex">
         <div className="flex items-center gap-3 px-7 py-7">
           <div className="grid size-9 place-items-center rounded-full bg-bitcoin text-white">
             <Bitcoin size={20} />
@@ -128,8 +129,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 className={clsx(
                   "flex h-12 items-center gap-3 rounded-2xl px-4 text-base font-semibold transition",
                   active
-                    ? "bg-[#111] text-white"
-                    : "text-[#777] hover:bg-[#f0f0ed] hover:text-ink",
+                    ? "bg-action text-actionText"
+                    : "text-muted hover:bg-subtle hover:text-ink",
                 )}
               >
                 <Icon size={21} className={active ? "text-bitcoin" : ""} />
@@ -139,10 +140,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
 
-        <div className="mt-auto border-t border-line p-4">
+        <div className="mt-auto space-y-2 border-t border-line p-4">
+          <ThemeToggle />
           <button
             onClick={handleSignOut}
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-ink px-4 font-bold text-white transition hover:bg-bitcoin"
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-2xl bg-action px-4 font-bold text-actionText transition hover:bg-bitcoin hover:text-white"
           >
             <LogOut size={18} />
             Sair
@@ -154,7 +156,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto max-w-[1400px]">
           {checkingAuth ? (
             <div className="grid min-h-screen place-items-center">
-              <p className="rounded-2xl bg-white px-5 py-3 font-semibold text-muted shadow-sm">
+              <p className="rounded-2xl bg-panel px-5 py-3 font-semibold text-muted shadow-sm">
                 Verificando login...
               </p>
             </div>
@@ -164,16 +166,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       </main>
 
-      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-white px-3 pb-[calc(10px+env(safe-area-inset-bottom))] pt-4 lg:hidden">
+      <div className="fixed bottom-0 left-0 right-0 z-30 border-t border-line bg-panel px-3 pb-[calc(10px+env(safe-area-inset-bottom))] pt-4 lg:hidden">
         <div
           className={clsx(
-            "absolute left-1/2 top-1 h-1 w-24 -translate-x-1/2 rounded-full bg-[#e6e6e2]",
+            "absolute left-1/2 top-1 h-1 w-24 -translate-x-1/2 rounded-full bg-subtle",
             !hasMobileOverflow && "opacity-40",
           )}
           aria-hidden="true"
         >
           <div
-            className="h-full w-9 rounded-full bg-[#9b9b94] transition-transform duration-150"
+            className="h-full w-9 rounded-full bg-muted transition-transform duration-150"
             style={{
               transform: `translateX(${scrollProgress * 60}px)`,
             }}
@@ -198,7 +200,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 href={item.href}
                 className={clsx(
                   "grid h-16 min-w-[86px] shrink-0 place-items-center rounded-2xl px-3 py-2 text-xs font-semibold",
-                  active ? "bg-ink text-white" : "text-muted",
+                  active ? "bg-action text-actionText" : "text-muted",
                 )}
               >
                 <Icon size={18} />
@@ -213,6 +215,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <LogOut size={18} />
             <span className="whitespace-nowrap leading-none">Sair</span>
           </button>
+          <ThemeToggle compact />
         </div>
       </div>
     </div>

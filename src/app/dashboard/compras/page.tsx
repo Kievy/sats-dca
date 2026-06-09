@@ -162,7 +162,7 @@ export default function ComprasPage() {
       <PageTitle icon={ShoppingCart} title="Compras" />
 
       {error ? (
-        <div className="mb-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-semibold text-red-800">
+        <div className="mb-5 rounded-2xl border border-danger/20 bg-danger/10 px-4 py-3 text-sm font-semibold text-danger">
           {error}
         </div>
       ) : null}
@@ -234,14 +234,14 @@ export default function ComprasPage() {
             />
           </Field>
           <div className="flex gap-3 md:col-span-3 xl:col-span-6">
-            <button className="h-12 flex-1 rounded-2xl bg-ink px-5 font-bold text-white transition hover:bg-bitcoin">
+            <button className="h-12 flex-1 rounded-2xl bg-action px-5 font-bold text-actionText transition hover:bg-bitcoin hover:text-white">
               {editing ? "Salvar alteracoes" : "Adicionar aporte"}
             </button>
             {editing ? (
               <button
                 type="button"
                 onClick={resetForm}
-                className="grid h-12 w-12 place-items-center rounded-2xl border border-line bg-white text-muted transition hover:text-ink"
+                className="grid h-12 w-12 place-items-center rounded-2xl border border-line bg-panel text-muted transition hover:text-ink"
                 title="Cancelar edicao"
               >
                 <X size={20} />
@@ -281,21 +281,21 @@ export default function ComprasPage() {
             </thead>
             <tbody className="font-bold">
               {rows.map((row, index) => (
-                <tr key={row.dbId ?? `${row.id}-${row.date}`} className="border-b border-[#ededeb] transition hover:bg-[#f6f6f4]">
+                <tr key={row.dbId ?? `${row.id}-${row.date}`} className="border-b border-line transition hover:bg-subtle">
                   <td className="py-4 text-bitcoin">{rows.length - index}</td>
                   <td>{shortDate(row.date)}</td>
                   <td>{sats(row.sats)}</td>
                   <td>{usd(row.btcPriceUsd)}</td>
                   <td>{brl(row.investedBrl)}</td>
                   <td>
-                    <span className="rounded-lg bg-[#eef4ff] px-2 py-1 text-xs text-blue-700">{row.platform}</span>
+                    <span className="rounded-lg bg-bitcoin/10 px-2 py-1 text-xs text-bitcoin">{row.platform}</span>
                   </td>
                   <td>
                     <div className="flex justify-end gap-2">
                       <button
                         type="button"
                         onClick={() => startEdit(row)}
-                        className="grid size-9 place-items-center rounded-xl border border-line bg-white text-muted transition hover:text-ink"
+                        className="grid size-9 place-items-center rounded-xl border border-line bg-panel text-muted transition hover:text-ink"
                         title="Editar aporte"
                       >
                         <Pencil size={17} />
@@ -303,7 +303,7 @@ export default function ComprasPage() {
                       <button
                         type="button"
                         onClick={() => void handleDelete(row)}
-                        className="grid size-9 place-items-center rounded-xl border border-line bg-white text-muted transition hover:border-red-200 hover:text-danger"
+                        className="grid size-9 place-items-center rounded-xl border border-line bg-panel text-muted transition hover:border-danger/40 hover:text-danger"
                         title="Excluir aporte"
                       >
                         <Trash2 size={17} />

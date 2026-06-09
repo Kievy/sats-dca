@@ -4,6 +4,34 @@
 
 :root {
   color-scheme: light;
+  --color-app: #f3f3f1;
+  --color-ink: #0b0b0e;
+  --color-panel: #ffffff;
+  --color-field: #fafafa;
+  --color-subtle: #ededeb;
+  --color-line: #dedede;
+  --color-muted: #707070;
+  --color-action: #0b0b0e;
+  --color-action-text: #ffffff;
+  --color-hero: #0b0b0e;
+  --color-hero-text: #ffffff;
+  --shadow-soft: 0 14px 44px rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  color-scheme: dark;
+  --color-app: #000000;
+  --color-ink: #f6f6f3;
+  --color-panel: #050505;
+  --color-field: #090909;
+  --color-subtle: #111111;
+  --color-line: #202020;
+  --color-muted: #a3a3a3;
+  --color-action: #f6f6f3;
+  --color-action-text: #000000;
+  --color-hero: #050505;
+  --color-hero-text: #f6f6f3;
+  --shadow-soft: 0 14px 44px rgba(0, 0, 0, 0.55);
 }
 
 * {
@@ -13,8 +41,8 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: #f3f3f1;
-  color: #111111;
+  background: var(--color-app);
+  color: var(--color-ink);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     sans-serif;
@@ -27,24 +55,34 @@ select {
 }
 
 .chart-grid text {
-  fill: #777777;
+  fill: var(--color-muted);
   font-size: 12px;
+}
+
+.chart-grid line,
+.chart-grid path {
+  stroke: var(--color-line);
 }
 
 .input {
   height: 48px;
   width: 100%;
   border-radius: 16px;
-  border: 1px solid #dedede;
-  background: #fafafa;
+  border: 1px solid var(--color-line);
+  background: var(--color-field);
+  color: var(--color-ink);
   padding: 0 14px;
   font-weight: 650;
   outline: none;
 }
 
 .input:focus {
-  border-color: #111111;
-  background: #ffffff;
+  border-color: var(--color-ink);
+  background: var(--color-panel);
+}
+
+.input::placeholder {
+  color: var(--color-muted);
 }
 
 .scrollbar-hide {

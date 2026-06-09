@@ -12,8 +12,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR">
-      <body>{children}</body>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('sats-dca-theme')==='dark'){document.documentElement.classList.add('dark')}}catch(e){}",
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
